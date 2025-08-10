@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import ModernCarousel from './ModernCarousel'
+import SwiperCarousel from './SwiperCarousel'
 
 export default function BoardOfDirectors() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
@@ -197,13 +197,14 @@ export default function BoardOfDirectors() {
 
         {/* Directors Carousel */}
         <div className="mb-16">
-          <ModernCarousel
+          <SwiperCarousel
             items={carouselItems}
             itemsPerView={4}
             gap={20}
             showArrows={true}
             showDots={true}
             autoPlay={false}
+            freeMode={true}
             className="max-w-7xl mx-auto"
           />
         </div>

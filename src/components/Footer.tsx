@@ -84,7 +84,10 @@ export default function Footer() {
                 </svg>
                 <div className="min-w-0 flex-1">
                   <p className="text-gray-300 text-sm sm:text-base">Phone</p>
-                  <p className="text-gray-400 text-xs sm:text-sm">+92 51 123 4567</p>
+                  <div className="space-y-1">
+                    <p className="text-gray-400 text-xs sm:text-sm">+92 333 949 9996</p>
+                    <p className="text-gray-400 text-xs sm:text-sm">+92 336 530 7330</p>
+                  </div>
                 </div>
               </div>
               
@@ -94,7 +97,7 @@ export default function Footer() {
                 </svg>
                 <div className="min-w-0 flex-1">
                   <p className="text-gray-300 text-sm sm:text-base">Email</p>
-                  <p className="text-gray-400 text-xs sm:text-sm break-all sm:break-normal">info@worldgroup.com</p>
+                  <p className="text-gray-400 text-xs sm:text-sm break-all sm:break-normal">worldwidebusinessnetwork.pk@gmail.com</p>
                 </div>
               </div>
             </div>

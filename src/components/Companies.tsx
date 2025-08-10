@@ -1,4 +1,4 @@
-import ModernCarousel from './ModernCarousel'
+import SwiperCarousel from './SwiperCarousel'
 
 export default function Companies() {
   const companies = [
@@ -113,13 +113,14 @@ export default function Companies() {
 
         {/* Companies Carousel */}
         <div className="mb-16">
-          <ModernCarousel
+          <SwiperCarousel
             items={carouselItems}
             itemsPerView={4}
             gap={20}
             showArrows={true}
             showDots={true}
             autoPlay={false}
+            freeMode={true}
             className="max-w-7xl mx-auto"
           />
         </div>
