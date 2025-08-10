@@ -56,19 +56,24 @@ export default function ModernCarousel({
     return () => window.removeEventListener('resize', updateItemsPerView)
   }, [itemsPerView])
 
-  // Enable infinite scrolling - no max index constraint
+  // Calculate max index to prevent scrolling beyond last item
+  const maxIndex = Math.max(0, items.length - currentItemsPerView)
+  
   const goToSlide = useCallback((index: number) => {
-    setCurrentIndex(index)
-    setTranslateX(-index * (100 / currentItemsPerView))
-  }, [currentItemsPerView])
+    const clampedIndex = Math.max(0, Math.min(index, maxIndex))
+    setCurrentIndex(clampedIndex)
+    setTranslateX(-clampedIndex * (100 / currentItemsPerView))
+  }, [currentItemsPerView, maxIndex])
 
   const nextSlide = useCallback(() => {
+    if (currentIndex >= maxIndex) return // Stop at last item
     const nextIndex = currentIndex + 1
     setCurrentIndex(nextIndex)
     setTranslateX(-nextIndex * (100 / currentItemsPerView))
-  }, [currentIndex, currentItemsPerView])
+  }, [currentIndex, currentItemsPerView, maxIndex])
 
   const prevSlide = useCallback(() => {
+    if (currentIndex <= 0) return // Stop at first item
     const prevIndex = currentIndex - 1
     setCurrentIndex(prevIndex)
     setTranslateX(-prevIndex * (100 / currentItemsPerView))
@@ -85,7 +90,19 @@ export default function ModernCarousel({
     const currentX = e.touches[0].clientX
     const diff = currentX - startX
     const movePercent = (diff / (carouselRef.current?.offsetWidth || 1)) * 100
-    setTranslateX(-currentIndex * (100 / currentItemsPerView) + movePercent)
+    
+    // Free mode: allow scrolling beyond boundaries with resistance
+    const newTranslateX = -currentIndex * (100 / currentItemsPerView) + movePercent
+    
+    // Add resistance at boundaries
+    if (currentIndex === 0 && newTranslateX > 0) {
+      setTranslateX(newTranslateX * 0.3) // Resistance at start
+    } else if (currentIndex >= maxIndex && newTranslateX < -maxIndex * (100 / currentItemsPerView)) {
+      const overscroll = newTranslateX + maxIndex * (100 / currentItemsPerView)
+      setTranslateX(-maxIndex * (100 / currentItemsPerView) + overscroll * 0.3) // Resistance at end
+    } else {
+      setTranslateX(newTranslateX)
+    }
   }
 
   const handleTouchEnd = () => {
@@ -96,10 +113,13 @@ export default function ModernCarousel({
     const threshold = 20 // Minimum swipe distance
     
     if (Math.abs(currentTranslateX + currentIndex * (100 / currentItemsPerView)) > threshold) {
-      if (currentTranslateX > 0) {
+      if (currentTranslateX > 0 && currentIndex > 0) {
         prevSlide()
-      } else {
+      } else if (currentTranslateX < 0 && currentIndex < maxIndex) {
         nextSlide()
+      } else {
+        // Snap back to current position if at boundary
+        setTranslateX(-currentIndex * (100 / currentItemsPerView))
       }
     } else {
       // Snap back to current position
@@ -118,7 +138,19 @@ export default function ModernCarousel({
     const currentX = e.clientX
     const diff = currentX - startX
     const movePercent = (diff / (carouselRef.current?.offsetWidth || 1)) * 100
-    setTranslateX(-currentIndex * (100 / currentItemsPerView) + movePercent)
+    
+    // Free mode: allow scrolling beyond boundaries with resistance
+    const newTranslateX = -currentIndex * (100 / currentItemsPerView) + movePercent
+    
+    // Add resistance at boundaries
+    if (currentIndex === 0 && newTranslateX > 0) {
+      setTranslateX(newTranslateX * 0.3) // Resistance at start
+    } else if (currentIndex >= maxIndex && newTranslateX < -maxIndex * (100 / currentItemsPerView)) {
+      const overscroll = newTranslateX + maxIndex * (100 / currentItemsPerView)
+      setTranslateX(-maxIndex * (100 / currentItemsPerView) + overscroll * 0.3) // Resistance at end
+    } else {
+      setTranslateX(newTranslateX)
+    }
   }
 
   const handleMouseUp = () => {
@@ -129,10 +161,13 @@ export default function ModernCarousel({
     const threshold = 20
     
     if (Math.abs(currentTranslateX + currentIndex * (100 / currentItemsPerView)) > threshold) {
-      if (currentTranslateX > 0) {
+      if (currentTranslateX > 0 && currentIndex > 0) {
         prevSlide()
-      } else {
+      } else if (currentTranslateX < 0 && currentIndex < maxIndex) {
         nextSlide()
+      } else {
+        // Snap back to current position if at boundary
+        setTranslateX(-currentIndex * (100 / currentItemsPerView))
       }
     } else {
       setTranslateX(-currentIndex * (100 / currentItemsPerView))
@@ -143,6 +178,13 @@ export default function ModernCarousel({
   useEffect(() => {
     if (autoPlay && items.length > currentItemsPerView) {
       autoPlayRef.current = setInterval(() => {
+        // Stop auto-play when reaching the last item
+        if (currentIndex >= maxIndex) {
+          if (autoPlayRef.current) {
+            clearInterval(autoPlayRef.current)
+          }
+          return
+        }
         nextSlide()
       }, autoPlayInterval)
     }
@@ -152,7 +194,7 @@ export default function ModernCarousel({
         clearInterval(autoPlayRef.current)
       }
     }
-  }, [autoPlay, autoPlayInterval, nextSlide, items.length, currentItemsPerView])
+  }, [autoPlay, autoPlayInterval, nextSlide, items.length, currentItemsPerView, currentIndex, maxIndex])
 
   // Pause auto-play on hover/touch
   const pauseAutoPlay = () => {
@@ -216,7 +258,8 @@ export default function ModernCarousel({
           
           <button
             onClick={nextSlide}
-            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-md rounded-full shadow-lg hover:bg-white transition-all duration-300 group"
+            disabled={currentIndex >= maxIndex}
+            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-md rounded-full shadow-lg hover:bg-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
             aria-label="Next slide"
           >
             <svg className="w-4 h-4 sm:w-5 sm:h-5 mx-auto text-gray-700 group-hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -229,7 +272,7 @@ export default function ModernCarousel({
       {/* Dots Indicator */}
       {showDots && items.length > currentItemsPerView && (
         <div className="flex justify-center mt-4 sm:mt-6 space-x-2">
-          {Array.from({ length: Math.ceil(items.length / currentItemsPerView) }).map((_, index) => (
+          {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
@@ -250,7 +293,7 @@ export default function ModernCarousel({
           <div
             className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-100 ease-linear"
             style={{
-              width: `${((currentIndex + 1) / Math.ceil(items.length / currentItemsPerView)) * 100}%`
+              width: `${((currentIndex + 1) / (maxIndex + 1)) * 100}%`
             }}
           />
         </div>

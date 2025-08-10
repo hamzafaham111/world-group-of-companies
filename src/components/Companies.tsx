@@ -127,8 +127,15 @@ export default function Companies() {
         {/* Sector Overview */}
         <div className="mt-16 sm:mt-20">
           <div className="mb-8 sm:mb-12">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
-              Our Core Sectors
+            <div className="inline-flex items-center space-x-2 mb-4">
+              <div className="w-8 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500"></div>
+              <span className="text-blue-600 text-sm font-medium tracking-wider uppercase">Sectors</span>
+              <div className="w-8 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+            </div>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4 sm:mb-6">
+              <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 bg-clip-text text-transparent">
+                Our Core Sectors
+              </span>
             </h3>
             <p className="text-base sm:text-lg text-gray-600 max-w-2xl">
               Specialized expertise across key industries driving innovation and growth
