@@ -103,7 +103,7 @@ export default function BoardOfDirectors() {
   const carouselItems = filteredDirectors.map((director) => ({
     id: director.id,
     content: (
-      <div className="bg-white rounded-xl shadow-md hover:shadow-2xl hover:border-2 hover:border-blue-200 transition-all duration-300 overflow-hidden group h-full flex flex-col">
+      <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl hover:border-2 hover:border-blue-200 transition-all duration-300 overflow-hidden group h-full flex flex-col">
         {/* Director Image Placeholder */}
         <div className="h-24 sm:h-32 md:h-40 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center relative overflow-hidden flex-shrink-0">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-blue-800/20 group-hover:scale-110 transition-transform duration-300"></div>
@@ -113,6 +113,12 @@ export default function BoardOfDirectors() {
         </div>
 
         <div className="p-3 sm:p-4 md:p-5 flex flex-col flex-grow">
+          <div className="mb-2 sm:mb-3">
+            <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2 sm:px-3 py-1 rounded-full">
+              {director.category}
+            </span>
+          </div>
+          
           <h3 className="text-sm sm:text-lg md:text-xl font-bold text-gray-900 mb-2 leading-tight line-clamp-2">
             {director.name}
           </h3>
@@ -126,7 +132,7 @@ export default function BoardOfDirectors() {
           </p>
 
           <div className="mt-auto pt-2 sm:pt-3 border-t border-gray-100">
-            <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-2 px-2 sm:px-3 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-medium text-xs sm:text-sm transform hover:scale-105 shadow-sm hover:shadow-md">
+            <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-2 px-2 sm:px-3 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-medium text-xs sm:text-sm transform hover:scale-105 shadow-md hover:shadow-lg">
               View Profile
             </button>
           </div>
@@ -140,7 +146,7 @@ export default function BoardOfDirectors() {
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 75% 75%, #10B981 2px, transparent 2px)`,
+          backgroundImage: `radial-gradient(circle at 75% 25%, #3B82F6 2px, transparent 2px)`,
           backgroundSize: '50px 50px'
         }}></div>
       </div>

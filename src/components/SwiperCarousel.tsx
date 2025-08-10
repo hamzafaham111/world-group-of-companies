@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination, Autoplay, FreeMode, EffectFade, EffectCube, EffectCoverflow } from 'swiper/modules'
 
@@ -54,6 +54,8 @@ export default function SwiperCarousel({
 }: SwiperCarouselProps) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const swiperRef = useRef<any>(null)
+  const [isBeginning, setIsBeginning] = useState(true)
+  const [isEnd, setIsEnd] = useState(false)
 
   // Enhanced autoplay with pause on hover/focus
   useEffect(() => {
@@ -152,7 +154,7 @@ export default function SwiperCarousel({
           clickable: true,
           dynamicBullets: true,
           renderBullet: function (index: number, className: string) {
-            return `<span class="${className} !w-3 !h-3 !bg-gray-300 hover:!bg-blue-500 !transition-all !duration-300"></span>`
+            return `<span class="${className} !w-5 !h-5 !bg-gray-300 hover:!bg-blue-500 !transition-all !duration-300 !rounded-full !shadow-sm hover:!shadow-md !border-2 !border-transparent hover:!border-blue-300 active:!bg-blue-600 active:!scale-110"></span>`
           }
         } : false}
         autoplay={autoPlay ? { 
@@ -168,7 +170,7 @@ export default function SwiperCarousel({
         speed={speed}
         effect={effect}
         {...getEffectOptions()}
-        className="swiper-carousel"
+        className="swiper-carousel px-16 sm:px-20"
         breakpoints={{
           320: {
             slidesPerView: 1,
@@ -193,9 +195,12 @@ export default function SwiperCarousel({
         }}
         onSwiper={(swiper) => {
           swiperRef.current = swiper
+          setIsBeginning(swiper.isBeginning)
+          setIsEnd(swiper.isEnd)
         }}
-        onSlideChange={() => {
-          // Optional: Add custom slide change logic here
+        onSlideChange={(swiper) => {
+          setIsBeginning(swiper.isBeginning)
+          setIsEnd(swiper.isEnd)
         }}
       >
         {items.map((item) => (
@@ -205,33 +210,40 @@ export default function SwiperCarousel({
         ))}
       </Swiper>
 
-      {/* Enhanced Custom Navigation Arrows */}
+      {/* Enhanced Custom Navigation Arrows - Only show when not at boundaries */}
       {showArrows && (
         <>
-          <button
-            onClick={() => swiperRef.current?.slidePrev()}
-            className="swiper-button-prev !w-10 !h-10 sm:!w-12 sm:!h-12 !bg-white/95 !backdrop-blur-md !rounded-full !shadow-xl hover:!bg-white hover:!shadow-2xl transition-all duration-300 !text-gray-700 hover:!text-gray-900 !border !border-gray-200 hover:!border-blue-300 group"
-            aria-label="Previous slide"
-          >
-            <svg className="w-5 h-5 sm:w-6 sm:h-6 mx-auto transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button
-            onClick={() => swiperRef.current?.slideNext()}
-            className="swiper-button-next !w-10 !h-10 sm:!w-12 sm:!h-12 !bg-white/95 !backdrop-blur-md !rounded-full !shadow-xl hover:!bg-white hover:!shadow-2xl transition-all duration-300 !text-gray-700 hover:!text-gray-900 !border !border-gray-200 hover:!border-blue-300 group"
-            aria-label="Next slide"
-          >
-            <svg className="w-5 h-5 sm:w-6 sm:h-6 mx-auto transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+          {/* Left Arrow - Only show when not at beginning */}
+          {!isBeginning && (
+            <button
+              onClick={() => swiperRef.current?.slidePrev()}
+              className="!absolute !left-4 !top-1/2 !-translate-y-1/2 !z-10 !w-10 !h-10 sm:!w-12 sm:!h-12 !bg-white/15 !backdrop-blur-sm !rounded-full !shadow-lg hover:!bg-white/35 hover:!shadow-xl transition-all duration-300 !text-gray-700 hover:!text-gray-900 !border !border-white/30 hover:!border-white/50 group"
+              aria-label="Previous slide"
+            >
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 mx-auto transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
+          
+          {/* Right Arrow - Only show when not at end */}
+          {!isEnd && (
+            <button
+              onClick={() => swiperRef.current?.slideNext()}
+              className="!absolute !right-4 !top-1/2 !-translate-y-1/2 !z-10 !w-10 !h-10 sm:!w-12 sm:!h-12 !bg-white/15 !backdrop-blur-sm !rounded-full !shadow-lg hover:!bg-white/35 hover:!shadow-xl transition-all duration-300 !text-gray-700 hover:!text-gray-900 !border !border-white/30 hover:!border-white/50 group"
+              aria-label="Next slide"
+            >
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 mx-auto transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
         </>
       )}
 
       {/* Enhanced Custom Pagination Dots */}
       {showDots && (
-        <div className="swiper-pagination !bottom-0 !static !mt-6 !flex !justify-center !space-x-2" />
+        <div className="swiper-pagination !bottom-0 !static !mt-8 !flex !justify-center !space-x-4" />
       )}
 
       {/* Progress Bar for Autoplay */}
@@ -247,11 +259,25 @@ export default function SwiperCarousel({
         </div>
       )}
 
-      {/* Custom CSS for progress bar animation */}
+      {/* Custom CSS for progress bar animation and pagination */}
       <style jsx>{`
         @keyframes progress {
           from { width: 0%; }
           to { width: 100%; }
+        }
+        
+        .swiper-pagination-bullet {
+          transition: all 0.3s ease !important;
+        }
+        
+        .swiper-pagination-bullet-active {
+          background-color: #3B82F6 !important;
+          transform: scale(1.2) !important;
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+        }
+        
+        .swiper-pagination-bullet:hover {
+          transform: scale(1.1) !important;
         }
       `}</style>
     </div>

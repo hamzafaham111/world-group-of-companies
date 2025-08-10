@@ -74,7 +74,7 @@ export default function Footer() {
                 </svg>
                 <div className="min-w-0 flex-1">
                   <p className="text-gray-300 text-sm sm:text-base">Head Office</p>
-                  <p className="text-gray-400 text-xs sm:text-sm">Islamabad, Pakistan</p>
+                  <p className="text-gray-400 text-xs sm:text-sm">Swat Road, Wajidabad, Chakdara Pullchowki, Malakand, KPK</p>
                 </div>
               </div>
               

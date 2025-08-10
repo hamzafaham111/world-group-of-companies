@@ -31,8 +31,12 @@ export default function Hero() {
       {/* Navigation with glassmorphism */}
       <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
         isScrolled 
-          ? 'bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-indigo-900/95 border-white/20 shadow-lg' 
-          : 'bg-gradient-to-r from-slate-900/80 via-blue-900/80 to-indigo-900/80 border-white/10'
+          ? 'bg-gradient-to-r from-slate-900/85 via-blue-900/85 to-indigo-900/85 border-white/20 shadow-lg' 
+          : 'bg-gradient-to-r from-slate-900/70 via-blue-900/70 to-indigo-900/70 border-white/10'
+      } ${
+        isScrolled 
+          ? 'md:bg-gradient-to-r md:from-slate-900/95 md:via-blue-900/95 md:to-indigo-900/95' 
+          : 'md:bg-gradient-to-r md:from-slate-900/80 md:via-blue-900/80 md:to-indigo-900/80'
       }`}>
         <div className="container mx-auto px-4 py-4 lg:py-6">
         <div className="flex justify-between items-center">
@@ -74,7 +78,7 @@ export default function Hero() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300"
+            className="md:hidden p-3 rounded-xl bg-white/3 backdrop-blur-md border border-white/8 hover:bg-white/12 transition-all duration-300"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -91,7 +95,7 @@ export default function Hero() {
         {/* Mobile Navigation with glassmorphism */}
         {isMenuOpen && (
           <div className="md:hidden mt-6 pb-6 animate-fade-in-up">
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl">
+            <div className="bg-white/3 backdrop-blur-md rounded-2xl p-6 border border-white/8 shadow-2xl">
               {['Home', 'Companies', 'Leadership', 'About', 'Contact'].map((item) => (
                 <a 
                   key={item}
