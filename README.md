@@ -1,36 +1,174 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# World Group of Companies Website
+
+A modern, responsive website built with Next.js and Tailwind CSS for World Group of Companies, showcasing their diverse portfolio across healthcare, pharmaceuticals, and mining sectors.
+
+## Features
+
+- **Responsive Design**: Mobile-first approach with modern UI/UX
+- **Company Showcase**: Detailed information about all 5 subsidiary companies
+- **Leadership Section**: Managing Director's message and Board of Directors profiles
+- **Modern UI**: Beautiful gradients, animations, and professional styling
+- **SEO Optimized**: Built with Next.js for optimal performance
+
+## Companies Featured
+
+1. **World Pharma** - Leading pharmaceutical solutions and innovative drug development
+2. **Unique Pharmaceuticals** - Specialized pharmaceutical manufacturing for rare diseases
+3. **Community Header** - Comprehensive healthcare services for community wellness
+4. **World Stone Mining Company** - Sustainable mining operations with environmental responsibility
+5. **Worldwide Business Network** - Global business consulting and strategic partnerships
+
+## Leadership
+
+- **Managing Director**: Mian Abdul Wajid
+- **Board of Directors**: 12 distinguished members from various sectors including military leadership, healthcare, business, and engineering
+
+## Technology Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Styling**: Tailwind CSS
+- **Language**: TypeScript
+- **Deployment**: Ready for Vercel, Netlify, or any hosting platform
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd world-group-website
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Run the development server:
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── globals.css          # Global styles and Tailwind CSS
+│   ├── layout.tsx           # Root layout component
+│   └── page.tsx             # Home page
+├── components/
+│   ├── Hero.tsx             # Hero section with navigation
+│   ├── Companies.tsx        # Company showcase section
+│   ├── ManagingDirector.tsx # MD message section
+│   ├── BoardOfDirectors.tsx # Board members section
+│   └── Footer.tsx           # Footer component
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Customization
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Adding Company Logos
 
-## Deploy on Vercel
+Replace the placeholder logo divs in `Companies.tsx` with actual company logos:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```tsx
+// Replace this:
+<div className={`h-48 bg-gradient-to-br ${company.color} rounded-t-xl flex items-center justify-center`}>
+  <div className="text-white text-6xl font-bold">
+    {company.name.split(' ').map(word => word[0]).join('')}
+  </div>
+</div>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+// With this:
+<Image
+  src="/logos/company-logo.png"
+  alt={`${company.name} Logo`}
+  width={192}
+  height={192}
+  className="w-full h-48 object-cover rounded-t-xl"
+/>
+```
+
+### Adding Director Photos
+
+Replace placeholder images in `BoardOfDirectors.tsx` with actual photos:
+
+```tsx
+// Replace the placeholder div with:
+<Image
+  src="/directors/director-name.jpg"
+  alt={director.name}
+  width={192}
+  height={192}
+  className="w-full h-48 object-cover rounded-t-xl"
+/>
+```
+
+### Updating Content
+
+- Company descriptions: Edit the `companies` array in `Companies.tsx`
+- Managing Director message: Modify the content in `ManagingDirector.tsx`
+- Board members: Update the `directors` array in `BoardOfDirectors.tsx`
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy automatically
+
+### Other Platforms
+
+The website can be deployed to any platform that supports Next.js:
+- Netlify
+- AWS Amplify
+- DigitalOcean App Platform
+- Self-hosted servers
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+This project is proprietary to World Group of Companies.
+
+## Contact
+
+For questions or support, please contact:
+- Email: info@worldgroup.com
+- Phone: +92 XXX XXX XXXX
+
+---
+
+Built with ❤️ using Next.js and Tailwind CSS
