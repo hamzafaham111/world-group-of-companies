@@ -57,7 +57,7 @@ export default function ManagingDirector() {
               {/* Message Content */}
               <div className="p-6 sm:p-8">
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 leading-tight">
-                  Group Chairman's Message
+                  Group Chairman&apos;s Message
                 </h3>
 
                 <div className="mb-4">
@@ -130,7 +130,7 @@ export default function ManagingDirector() {
               {/* Message Content */}
               <div className="p-6 sm:p-8">
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 leading-tight">
-                  Group Managing Director's Message
+                  Group Managing Director&apos;s Message
                 </h3>
 
                 <div className="mb-4">

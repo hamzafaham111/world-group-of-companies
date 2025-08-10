@@ -143,7 +143,7 @@ export default function ContactOffices() {
               <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
                 Our Office Locations
               </h3>
-              <p className="text-gray-400">Strategic presence across Pakistan's major cities</p>
+              <p className="text-gray-400">Strategic presence across Pakistan&apos;s major cities</p>
             </div>
             
             <div className="space-y-4">
