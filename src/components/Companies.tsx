@@ -81,7 +81,7 @@ export default function Companies() {
   }))
 
   return (
-    <section id="companies" className="py-16 sm:py-20 bg-gray-50 relative overflow-hidden">
+    <section className="pt-24 lg:pt-28 pb-16 sm:pb-20 bg-gray-50 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{

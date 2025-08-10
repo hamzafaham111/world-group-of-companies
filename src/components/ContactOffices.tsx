@@ -28,7 +28,7 @@ export default function ContactOffices() {
   ]
 
   return (
-    <section id="contact" className="py-16 sm:py-20 bg-gray-900 text-white relative overflow-hidden">
+    <section className="pt-24 lg:pt-28 pb-16 sm:pb-20 bg-gray-900 text-white relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{

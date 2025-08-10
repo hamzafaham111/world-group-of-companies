@@ -93,7 +93,7 @@ export default function BoardOfDirectors() {
     }
   ]
 
-  const categories = ["Military Leadership", "Business Leadership", "Healthcare & Academia", "Community & Faith", "Technical Leadership"]
+  const categories = ["Business Leadership", "Healthcare & Academia", "Community & Faith", "Technical Leadership"]
 
   // Filter directors based on selected category
   const filteredDirectors = selectedCategory 
@@ -113,12 +113,6 @@ export default function BoardOfDirectors() {
         </div>
 
         <div className="p-3 sm:p-4 md:p-5 flex flex-col flex-grow">
-          <div className="mb-2">
-            <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full">
-              {director.category}
-            </span>
-          </div>
-          
           <h3 className="text-sm sm:text-lg md:text-xl font-bold text-gray-900 mb-2 leading-tight line-clamp-2">
             {director.name}
           </h3>
@@ -142,7 +136,7 @@ export default function BoardOfDirectors() {
   }))
 
   return (
-    <section id="board" className="py-16 sm:py-20 bg-gray-50 relative overflow-hidden">
+    <section className="pt-24 lg:pt-28 pb-16 sm:pb-20 bg-gray-50 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{

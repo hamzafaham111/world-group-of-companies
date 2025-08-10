@@ -56,21 +56,23 @@ export default function ModernCarousel({
     return () => window.removeEventListener('resize', updateItemsPerView)
   }, [itemsPerView])
 
-  const maxIndex = Math.max(0, items.length - currentItemsPerView)
-
+  // Enable infinite scrolling - no max index constraint
   const goToSlide = useCallback((index: number) => {
-    const clampedIndex = Math.max(0, Math.min(index, maxIndex))
-    setCurrentIndex(clampedIndex)
-    setTranslateX(-clampedIndex * (100 / currentItemsPerView))
-  }, [maxIndex, currentItemsPerView])
+    setCurrentIndex(index)
+    setTranslateX(-index * (100 / currentItemsPerView))
+  }, [currentItemsPerView])
 
   const nextSlide = useCallback(() => {
-    goToSlide(currentIndex + 1)
-  }, [currentIndex, goToSlide])
+    const nextIndex = currentIndex + 1
+    setCurrentIndex(nextIndex)
+    setTranslateX(-nextIndex * (100 / currentItemsPerView))
+  }, [currentIndex, currentItemsPerView])
 
   const prevSlide = useCallback(() => {
-    goToSlide(currentIndex - 1)
-  }, [currentIndex, goToSlide])
+    const prevIndex = currentIndex - 1
+    setCurrentIndex(prevIndex)
+    setTranslateX(-prevIndex * (100 / currentItemsPerView))
+  }, [currentIndex, currentItemsPerView])
 
   // Touch/Swipe handlers
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -141,11 +143,7 @@ export default function ModernCarousel({
   useEffect(() => {
     if (autoPlay && items.length > currentItemsPerView) {
       autoPlayRef.current = setInterval(() => {
-        if (currentIndex >= maxIndex) {
-          goToSlide(0)
-        } else {
-          nextSlide()
-        }
+        nextSlide()
       }, autoPlayInterval)
     }
 
@@ -154,7 +152,7 @@ export default function ModernCarousel({
         clearInterval(autoPlayRef.current)
       }
     }
-  }, [autoPlay, autoPlayInterval, currentIndex, maxIndex, nextSlide, goToSlide, items.length, currentItemsPerView])
+  }, [autoPlay, autoPlayInterval, nextSlide, items.length, currentItemsPerView])
 
   // Pause auto-play on hover/touch
   const pauseAutoPlay = () => {
@@ -165,10 +163,8 @@ export default function ModernCarousel({
 
   // Reset current index when items per view changes
   useEffect(() => {
-    if (currentIndex > maxIndex) {
-      goToSlide(maxIndex)
-    }
-  }, [currentItemsPerView, maxIndex, currentIndex, goToSlide])
+    // With infinite scrolling, we don't need to reset the index
+  }, [currentItemsPerView])
 
   return (
     <div className={`relative ${className}`}>
@@ -220,8 +216,7 @@ export default function ModernCarousel({
           
           <button
             onClick={nextSlide}
-            disabled={currentIndex >= maxIndex}
-            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-md rounded-full shadow-lg hover:bg-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
+            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-md rounded-full shadow-lg hover:bg-white transition-all duration-300 group"
             aria-label="Next slide"
           >
             <svg className="w-4 h-4 sm:w-5 sm:h-5 mx-auto text-gray-700 group-hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -234,7 +229,7 @@ export default function ModernCarousel({
       {/* Dots Indicator */}
       {showDots && items.length > currentItemsPerView && (
         <div className="flex justify-center mt-4 sm:mt-6 space-x-2">
-          {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+          {Array.from({ length: Math.ceil(items.length / currentItemsPerView) }).map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
@@ -255,7 +250,7 @@ export default function ModernCarousel({
           <div
             className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-100 ease-linear"
             style={{
-              width: `${((currentIndex + 1) / (maxIndex + 1)) * 100}%`
+              width: `${((currentIndex + 1) / Math.ceil(items.length / currentItemsPerView)) * 100}%`
             }}
           />
         </div>

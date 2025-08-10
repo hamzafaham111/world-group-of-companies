@@ -1,12 +1,21 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
+import { useState, useEffect } from 'react'
 import Logo from './Logo'
 import ModernButton from './ModernButton'
 
 export default function Hero() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -20,7 +29,12 @@ export default function Hero() {
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-full blur-3xl"></div>
 
       {/* Navigation with glassmorphism */}
-      <nav className="relative z-10 container mx-auto px-4 py-6 lg:py-8">
+      <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-indigo-900/95 border-white/20 shadow-lg' 
+          : 'bg-gradient-to-r from-slate-900/80 via-blue-900/80 to-indigo-900/80 border-white/10'
+      }`}>
+        <div className="container mx-auto px-4 py-4 lg:py-6">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <div className="relative">
@@ -35,14 +49,26 @@ export default function Hero() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
             {['Home', 'Companies', 'Leadership', 'About', 'Contact'].map((item) => (
-              <Link 
+              <a 
                 key={item}
                 href={`#${item.toLowerCase()}`} 
-                className="relative group text-white/90 hover:text-white transition-all duration-300 text-sm lg:text-base font-medium"
+                className="relative group text-white/90 hover:text-white transition-all duration-300 text-sm lg:text-base font-medium cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.getElementById(item.toLowerCase());
+                  if (element) {
+                    const offset = 80; // Account for fixed navbar
+                    const elementPosition = element.offsetTop - offset;
+                    window.scrollTo({
+                      top: elementPosition,
+                      behavior: 'smooth'
+                    });
+                  }
+                }}
               >
                 {item}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-yellow-400 to-orange-400 group-hover:w-full transition-all duration-300"></span>
-              </Link>
+              </a>
             ))}
           </div>
 
@@ -67,22 +93,35 @@ export default function Hero() {
           <div className="md:hidden mt-6 pb-6 animate-fade-in-up">
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl">
               {['Home', 'Companies', 'Leadership', 'About', 'Contact'].map((item) => (
-                <Link 
+                <a 
                   key={item}
                   href={`#${item.toLowerCase()}`} 
-                  className="block hover:text-yellow-400 transition-colors duration-300 text-lg py-3 border-b border-white/10 last:border-b-0"
-                  onClick={() => setIsMenuOpen(false)}
+                  className="block hover:text-yellow-400 transition-colors duration-300 text-lg py-3 border-b border-white/10 last:border-b-0 cursor-pointer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMenuOpen(false);
+                    const element = document.getElementById(item.toLowerCase());
+                    if (element) {
+                      const offset = 80; // Account for fixed navbar
+                      const elementPosition = element.offsetTop - offset;
+                      window.scrollTo({
+                        top: elementPosition,
+                        behavior: 'smooth'
+                      });
+                    }
+                  }}
                 >
                   {item}
-                </Link>
+                </a>
               ))}
             </div>
           </div>
         )}
+        </div>
       </nav>
 
       {/* Hero Content */}
-      <div className="relative z-10 container mx-auto px-4 py-12 lg:py-20 text-center flex-1 flex flex-col justify-center">
+      <div className="relative z-10 container mx-auto px-4 pt-32 lg:pt-40 pb-12 lg:pb-20 text-center flex-1 flex flex-col justify-center">
         {/* Logo with enhanced styling */}
         <div className="flex justify-center mb-12">
           <div className="relative group">

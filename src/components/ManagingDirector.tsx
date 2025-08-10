@@ -1,6 +1,6 @@
 export default function ManagingDirector() {
   return (
-    <section id="leadership" className="py-16 sm:py-20 bg-white relative overflow-hidden">
+    <section className="pt-24 lg:pt-28 pb-16 sm:pb-20 bg-white relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -42,14 +42,20 @@ export default function ManagingDirector() {
                   <div className="absolute bottom-4 right-4 w-4 h-4 sm:w-6 sm:h-6 bg-blue-300 rounded-full"></div>
                 </div>
 
-                {/* Chairman Image Placeholder */}
+                {/* Chairman Image */}
                 <div className="relative z-10 flex justify-center">
-                  <div className="w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-blue-400 to-blue-700 rounded-full flex items-center justify-center">
-                    <div className="text-white text-lg sm:text-2xl font-bold text-center px-2">
+                  <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-white/20 shadow-lg bg-gradient-to-br from-blue-400 to-blue-700 flex items-center justify-center">
+                    <img 
+                      src="/images/picture-2.jpeg" 
+                      alt="Admiral Tanveer Ahmad - Group Chairman"
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Fallback text when image is not available */}
+                    {/* <div className="text-white text-lg sm:text-2xl font-bold text-center px-2">
                       <div>Admiral</div>
                       <div>Tanveer</div>
                       <div>Ahmad</div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -115,14 +121,20 @@ export default function ManagingDirector() {
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-purple-300 rounded-full"></div>
                 </div>
 
-                {/* Managing Director Image Placeholder */}
+                {/* Managing Director Image */}
                 <div className="relative z-10 flex justify-center">
-                  <div className="w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-purple-400 to-purple-700 rounded-full flex items-center justify-center">
-                    <div className="text-white text-lg sm:text-2xl font-bold text-center px-2">
+                  <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-white/20 shadow-lg bg-gradient-to-br from-purple-400 to-purple-700 flex items-center justify-center">
+                    <img 
+                      src="/images/picture-1.jpeg" 
+                      alt="Mian Abdul Wajid - Group Managing Director"
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Fallback text when image is not available */}
+                    {/* <div className="text-white text-lg sm:text-2xl font-bold text-center px-2">
                       <div>Mian</div>
                       <div>Abdul</div>
                       <div>Wajid</div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
