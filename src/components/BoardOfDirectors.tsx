@@ -12,84 +12,96 @@ export default function BoardOfDirectors() {
       name: "Admiral Tanveer Ahmed",
       position: "Group Chairman",
       expertise: "Strategic Leadership",
-      category: "Military Leadership"
+      category: "Military Leadership",
+      image: "/images/AdmiralTanveerAhmad.jpeg"
     },
     {
       id: 2,
       name: "General Muhammad Abdul Janjua",
       position: "Board Member",
       expertise: "Defense & Security",
-      category: "Military Leadership"
+      category: "Military Leadership",
+      image: "/images/GeneralMuhammadAbdulJanjua.jpeg"
     },
     {
       id: 3,
       name: "General Khalid Mahmood",
       position: "Board Member",
       expertise: "Strategic Planning",
-      category: "Military Leadership"
+      category: "Military Leadership",
+      image: "/images/GeneralKhalidMahmood.jpeg"
     },
     {
       id: 4,
       name: "General Muhammad Jawed",
       position: "Board Member",
       expertise: "Operations Management",
-      category: "Military Leadership"
+      category: "Military Leadership",
+      image: "/images/GeneralMuhammadJawed.jpeg"
     },
     {
       id: 5,
       name: "Air Marshal Iftikhar Gul",
       position: "Board Member",
       expertise: "Aviation & Technology",
-      category: "Military Leadership"
+      category: "Military Leadership",
+      image: "/images/AirMarshalIftikharGul.jpeg"
     },
     {
       id: 6,
       name: "Mian Abdul Wajid",
       position: "Group Managing Director",
       expertise: "Business Strategy",
-      category: "Business Leadership"
+      category: "Business Leadership",
+      image: "/images/MianAbdulWajid.jpeg"
     },
     {
       id: 7,
       name: "Nasir Mehdi Janjua",
       position: "Board Member",
       expertise: "Corporate Governance",
-      category: "Business Leadership"
+      category: "Business Leadership",
+      image: "/images/NasirMehdiJanjua.jpeg"
     },
     {
       id: 8,
       name: "Waqas Wajid",
       position: "Board Member",
       expertise: "Financial Management",
-      category: "Business Leadership"
+      category: "Business Leadership",
+      image: "/images/WaqasWajid.jpeg"
     },
     {
       id: 9,
       name: "Dr Nighat Farooq",
       position: "Board Member",
       expertise: "Healthcare & Research",
-      category: "Healthcare & Academia"
+      category: "Healthcare & Academia",
+      image: "/images/DrNighatFarooq.jpeg"
     },
     {
       id: 10,
       name: "Bishop Nasir Alam",
       position: "Board Member",
       expertise: "Community Development",
-      category: "Community & Faith"
+      category: "Community & Faith",
+      image: "/images/BishopNazirAlam.jpeg"
     },
     {
       id: 11,
       name: "Doctor Muhammad Sajjad",
       position: "Board Member",
       expertise: "Medical Sciences",
-      category: "Healthcare & Academia"
+      category: "Healthcare & Academia",
+      image: "/images/DoctorMuhammadSajjad.jpeg"
     },
     {
       id: 12,
       name: "Engineer Khadeem Hussain",
       position: "Board Member",
       expertise: "Engineering & Innovation",
-      category: "Technical Leadership"
+      category: "Technical Leadership",
+      image: "/images/EngineerKhadeemHussain.jpeg"
     }
   ]
 
@@ -104,12 +116,14 @@ export default function BoardOfDirectors() {
     id: director.id,
     content: (
       <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl hover:border-2 hover:border-blue-200 transition-all duration-300 overflow-hidden group h-full flex flex-col">
-        {/* Director Image Placeholder */}
-        <div className="h-24 sm:h-32 md:h-40 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center relative overflow-hidden flex-shrink-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-blue-800/20 group-hover:scale-110 transition-transform duration-300"></div>
-          <div className="text-white text-lg sm:text-2xl md:text-3xl font-bold text-center px-2 relative z-10">
-            {director.name.split(' ').map(word => word[0]).join('')}
-          </div>
+        {/* Director Image */}
+        <div className="h-24 sm:h-32 md:h-40 relative overflow-hidden flex-shrink-0">
+          <img 
+            src={director.image} 
+            alt={director.name}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-blue-800/20 group-hover:opacity-0 transition-opacity duration-300"></div>
         </div>
 
         <div className="p-3 sm:p-4 md:p-5 flex flex-col flex-grow">

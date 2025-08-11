@@ -8,7 +8,7 @@ export default function Companies() {
       description: "Leading pharmaceutical solutions and innovative drug development for global healthcare needs",
       sector: "Pharmaceuticals",
       color: "from-blue-500 to-blue-600",
-      logo: "WP"
+      logo: "/images/world-pharma-logo.png"
     },
     {
       id: 2,
@@ -16,7 +16,7 @@ export default function Companies() {
       description: "Specialized pharmaceutical manufacturing with focus on rare diseases and personalized medicine",
       sector: "Pharmaceuticals",
       color: "from-purple-500 to-purple-600",
-      logo: "UP"
+      logo: "/images/unique-pharmaceutical-logo.png"
     },
     {
       id: 3,
@@ -24,7 +24,7 @@ export default function Companies() {
       description: "Non-profit initiative focused on providing accessible healthcare solutions to underserved communities",
       sector: "Healthcare",
       color: "from-green-500 to-green-600",
-      logo: "CH"
+      logo: "/images/Group 8.png"
     },
     {
       id: 4,
@@ -32,7 +32,7 @@ export default function Companies() {
       description: "Sustainable mining operations with advanced extraction technologies and environmental responsibility",
       sector: "Mining",
       color: "from-gray-500 to-gray-600",
-      logo: "WSM"
+      logo: "/images/world-stone-mining-logo-1.png"
     },
     {
       id: 5,
@@ -40,7 +40,7 @@ export default function Companies() {
       description: "Global business consulting and strategic partnership facilitation across multiple industries",
       sector: "Consulting",
       color: "from-orange-500 to-orange-600",
-      logo: "WBN"
+      logo: "/images/worldeide-business-network.png"
     }
   ]
 
@@ -48,11 +48,13 @@ export default function Companies() {
     id: company.id,
     content: (
       <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl hover:border-2 hover:border-blue-200 transition-all duration-300 overflow-hidden h-full flex flex-col">
-        {/* Company Logo Placeholder */}
-        <div className={`h-24 sm:h-32 md:h-40 bg-gradient-to-br ${company.color} flex items-center justify-center flex-shrink-0`}>
-          <div className="text-white text-2xl sm:text-4xl md:text-6xl font-bold text-center px-2">
-            {company.logo}
-          </div>
+        {/* Company Logo */}
+        <div className={`h-24 sm:h-32 md:h-40 bg-gradient-to-br ${company.color} flex items-center justify-center flex-shrink-0 relative overflow-hidden`}>
+          <img 
+            src={company.logo} 
+            alt={`${company.name} Logo`}
+            className="h-16 sm:h-20 md:h-24 w-auto object-contain"
+          />
         </div>
 
         <div className="p-3 sm:p-4 md:p-6 flex flex-col flex-grow">
