@@ -66,7 +66,7 @@ export default function ContactOffices() {
           {/* Left Column - Company Info & Contact */}
           <div className="space-y-12">
             {/* Company Overview */}
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
+            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 border border-gray-700/50">
               <div className="flex items-center space-x-3 mb-6">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,7 +96,7 @@ export default function ContactOffices() {
             </div>
 
             {/* Contact Information */}
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
+            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 border border-gray-700/50">
               <div className="flex items-center space-x-3 mb-6">
                 <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,7 +138,7 @@ export default function ContactOffices() {
           </div>
 
           {/* Right Column - Office Locations */}
-          <div>
+          <div className="">
             <div className="mb-8">
               <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
                 Our Office Locations
